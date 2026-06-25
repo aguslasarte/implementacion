@@ -1,0 +1,27 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(node --check app.js)",
+      "Bash(node --check data.js)",
+      "Bash(node -e ' *)",
+      "Bash(python -m http.server 8765)",
+      "Bash(curl -s -o /dev/null -w \"HTTP %{http_code}\\\\n\" http://localhost:8765/index.html)",
+      "Bash(cp /tmp/shots/*.png _shots/)",
+      "Bash(cygpath -w /tmp/shots/index.png)",
+      "Bash(rm -f _seed.html)",
+      "Bash(rm -rf _shots)",
+      "Bash(kill %1)",
+      "Bash(pkill -f \"http.server 8765\")",
+      "Bash(rm -f _modaltest.html _seedtheme.html _seedlight.html)",
+      "Bash(rm -rf _s3)",
+      "Bash(curl -sS -m 20 -A \"Mozilla/5.0\" -o /tmp/cenital.html -w \"HTTP %{http_code} size=%{size_download}\\\\n\" https://cenital.com/)",
+      "Bash(curl -sS -m 25 -A \"Mozilla/5.0\" -o _cenital.html https://cenital.com/)",
+      "Bash(rm -rf _s4)",
+      "Bash(cp '/d/Multimedia/2do Año/TDW/implementacion - taller/data.js' '/d/Multimedia/2do Año/TDW/TP2/implementacion/data.js')",
+      "Bash(cp '/d/Multimedia/2do Año/TDW/implementacion - taller/especial.html' '/d/Multimedia/2do Año/TDW/TP2/implementacion/especial.html')",
+      "Bash(cp '/d/Multimedia/2do Año/TDW/implementacion - taller/articulo.html' '/d/Multimedia/2do Año/TDW/TP2/implementacion/articulo.html')",
+      "Bash(cp '/d/Multimedia/2do Año/TDW/implementacion - taller/imagenes/notas/*' '/d/Multimedia/2do Año/TDW/TP2/implementacion/imagenes/notas/')",
+      "WebFetch(domain:cenital.com)"
+    ]
+  }
+}

@@ -1,0 +1,152 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Iván Schargrodsky — Cenital</title>
+    <script>(function(){try{var t=localStorage.getItem('cenital.theme');if(t!=='light'&&t!=='dark'){t=(window.matchMedia&&matchMedia('(prefers-color-scheme: dark)').matches)?'dark':'light';}document.documentElement.setAttribute('data-theme',t);}catch(e){}})();</script>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body class="theme-light" data-page="editoriales">
+
+    <div id="site-header"></div>
+
+    <main class="container">
+
+        <a href="index.html" class="back-link">&larr; Volver</a>
+
+        <!-- Perfil del autor -->
+        <section class="author-hero">
+            <div class="author-photo portrait photo" style="background-image:url('imagenes/Iv%C3%A1n%20Schargrodsky.png')" role="img" aria-label="Iván Schargrodsky"></div>
+            <div>
+                <h1 class="author-name">Iván Schargrodsky</h1>
+                <p class="author-bio">
+                    Es director de Cenital. Hace 15 años que se dedica al periodismo, con el foco puesto
+                    en la política y la cocina del poder. Escribe <em>Off the record</em>, conduce el podcast
+                    homónimo y coordina la cobertura política del medio.
+                </p>
+                <div class="author-meta">
+                    <div>
+                        <span class="m-title">Newsletters</span>
+                        <span class="m-value">Off the record (semanal)</span>
+                    </div>
+                    <div>
+                        <span class="m-title">Programa</span>
+                        <span class="m-value">Off the record en YouTube</span>
+                    </div>
+                    <div>
+                        <span class="m-title">Notas firmadas</span>
+                        <span class="m-value">+120 publicadas en Cenital</span>
+                    </div>
+                </div>
+                <div class="author-actions">
+                    <button class="btn btn-primary" id="follow-btn" data-following="false">+ Seguir voz</button>
+                    <span class="followers" id="follow-count">2.480 lectores lo siguen</span>
+                </div>
+            </div>
+        </section>
+
+        <!-- Última entrega -->
+        <section class="section">
+            <article class="card-dark" style="display:grid;grid-template-columns:1fr 2fr">
+                <div class="card-img bg-cover" style="aspect-ratio:auto;background-image:url('imagenes/notas/nota-otr.jpg')"></div>
+                <div class="card-body">
+                    <span class="eyebrow">Off the record · última entrega</span>
+                    <h3 style="text-transform:none">Skynet también quiere derechos</h3>
+                    <p>Milei ofrece personería jurídica a corporaciones no humanas. Harari se preocupa por la
+                       manipulación de la voluntad humana. ¿Y Thiel?</p>
+                    <span class="date" style="color:var(--navy-200)">6 de junio de 2026</span>
+                    <a href="articulo.html?id=a4" class="btn btn-primary btn-sm">Leer nota</a>
+                </div>
+            </article>
+        </section>
+
+        <!-- Banner Mejores Amigos -->
+        <section class="section" style="padding-top:0">
+            <div class="event-banner">
+                <div class="chevrons"></div>
+                <div class="event-avatar portrait photo" style="background-image:url('imagenes/Iv%C3%A1n%20Schargrodsky.png')" role="img" aria-label="Iván Schargrodsky"></div>
+                <div class="event-text">
+                    <h3>Próximo encuentro · Mejores Amigos</h3>
+                    <p>Charla con Schargrodsky: el balance electoral 2027 · Jueves 26 de junio · 19 hs</p>
+                </div>
+                <a href="amigos.html" class="btn btn-primary btn-lg">Sumate</a>
+            </div>
+        </section>
+
+        <!-- On the record (videos) -->
+        <section class="section" aria-labelledby="otr-title">
+            <div class="section-head">
+                <h2 class="section-title" id="otr-title">On the record</h2>
+                <a class="link-more" href="#">Ver más</a>
+            </div>
+            <div class="grid grid-3" id="otr-grid"></div>
+        </section>
+
+        <!-- También te puede interesar -->
+        <section class="section" aria-labelledby="rec-title">
+            <div class="section-head">
+                <h2 class="section-title" id="rec-title">También te puede interesar</h2>
+                <a class="link-more" href="descubrir.html">Ver más</a>
+            </div>
+            <div class="grid grid-4" id="rec-grid"></div>
+        </section>
+
+    </main>
+
+    <div id="site-footer"></div>
+
+    <script src="data.js"></script>
+    <script src="app.js"></script>
+    <script>
+        document.addEventListener("DOMContentLoaded", function () {
+            var D = window.CENITAL_DATA;
+
+            // Videos On the record
+            document.getElementById("otr-grid").innerHTML = D.VIDEOS.map(function (v) {
+                var thumb = v.image
+                    ? 'class="thumb bg-cover" style="background-image:url(\'' + v.image + '\')"'
+                    : 'class="thumb img-mono"';
+                return '<article class="video-card">' +
+                    '<div ' + thumb + '><span class="badge">YouTube</span><span class="play">&#9654;</span></div>' +
+                    '<div class="card-body"><span class="date">' + v.show + '</span>' +
+                    '<h4>' + v.title + '</h4>' +
+                    '<a href="#" class="btn btn-primary btn-sm">Ver video</a></div></article>';
+            }).join("");
+
+            // Recomendados (otras voces)
+            document.getElementById("rec-grid").innerHTML = D.VOICES.filter(function (v) {
+                return v.id !== "schargrodsky";
+            }).slice(0, 4).map(function (v) {
+                return '<a class="voice-result" href="#">' +
+                    window.Cenital.portrait("vr-img", v) +
+                    '<div class="vr-body"><h3>' + v.name + '</h3><p class="vr-role">' + v.role + '</p>' +
+                    '<span class="tag tag-cat-' + v.category + '">' + D.categoryLabel(v.category) + '</span></div></a>';
+            }).join("");
+
+            // Estado seguir / dejar de seguir (persistido en preferencias)
+            var btn = document.getElementById("follow-btn");
+            var countEl = document.getElementById("follow-count");
+            var base = 2480;
+            function sync() {
+                var prefs = window.Cenital.Prefs.get();
+                var following = prefs.followedAuthors.indexOf("schargrodsky") !== -1;
+                btn.dataset.following = following;
+                btn.textContent = following ? "✓ Siguiendo" : "+ Seguir voz";
+                btn.classList.toggle("btn-primary", !following);
+                btn.classList.toggle("btn-secondary", following);
+                countEl.textContent = (base + (following ? 1 : 0)).toLocaleString("es-AR") + " lectores lo siguen";
+            }
+            btn.addEventListener("click", function () {
+                var prefs = window.Cenital.Prefs.get();
+                var set = prefs.followedAuthors;
+                var i = set.indexOf("schargrodsky");
+                if (i === -1) set.push("schargrodsky"); else set.splice(i, 1);
+                window.Cenital.Prefs.set({ followedAuthors: set });
+                sync();
+            });
+            sync();
+        });
+    </script>
+</body>
+</html>
